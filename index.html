@@ -1,85 +1,389 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>GoTestSeries</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        
-        <div class="navbar">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
+  height: 90%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+
+.container {
+  position: absolute;
+  height: 300px;
+  width: 600px;
+  top: 60px;
+  left: calc(50% - 300px);
+  display: flex;
+}
+
+.card {
+  display: flex;
+  height: 280px;
+  width: 200px;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+
+  transition: 0.4s ease-out;
+  position: relative;
+  left: 0px;
+}
+
+.card:not(:first-child) {
+    margin-left: -50px;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+}
+
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
+
+.title {
+  color: white;
+  font-weight: 300;
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
+
+.bar {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  height: 5px;
+  width: 150px;
+}
+
+.emptybar {
+  background-color: #2e3033;
+  width: 100%;
+  height: 100%;
+}
+
+.filledbar {
+  position: absolute;
+  top: 0px;
+  z-index: 3;
+  width: 0px;
+  height: 100%;
+  background: rgb(0,154,217);
+  background: linear-gradient(90deg, rgba(0,154,217,1) 0%, rgba(217,147,0,1) 65%, rgba(255,186,0,1) 100%);
+  transition: 0.6s ease-out;
+}
+
+.card:hover .filledbar {
+  width: 120px;
+  transition: 0.4s ease-out;
+}
+
+.circle {
+  position: absolute;
+  top: 150px;
+  left: calc(50% - 60px);
+}
+
+.stroke {
+  stroke: white;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  transition: 0.6s ease-out;
+}
+
+svg {
+  fill: #17141d;
+  stroke-width: 2px;
+}
+
+.card:hover .stroke {
+  stroke-dashoffset: 100;
+  transition: 0.6s ease-out;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 ,.bgimg-4{
+  position: relative;
+  opacity: 0.65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url("1.jpg");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("4.jpg");
+  min-height: 600px;
+}
+
+.bgimg-3 {
+  background-image: url("2.jpg");
+  min-height: 400px;
+}
+.bgimg-4 {
+  background-image: url("6.jpg");
+  min-height: 700px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid rgb(0, 0, 0); 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical 
+    }
+  
+  
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+img{
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: 500px;
+    
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+
+ul {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  margin:0;
+  padding:0;
+  display:flex;
+}
+
+ul li {
+  list-style: none;
+}
+
+ul li a {
+  position: relative;
+  width:60px;
+  height:60px;
+  display:block;
+  text-align:center;
+  margin:0 10px;
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration:none;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+  background: linear-gradient(0deg, #ddd, #fff);
+  transition: .5s;
+}
+
+ul li a:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+ul li a .fa {
+  width: 100%;
+  height:100%;
+  display:block;
+  background: linear-gradient(0deg, #fff, #ddd);
+  border-radius: 50%;
+  line-height: calc(60px - 12px);
+  font-size:24px;
+  color: #262626;
+  transition: .5s;
+}
+
+ul li:nth-child(1) a:hover .fa {
+  color: #3b5998;
+}
+
+ul li:nth-child(2) a:hover .fa {
+  color: #00aced;
+}
+
+ul li:nth-child(3) a:hover .fa {
+  color: #dd4b39;
+}
+
+ul li:nth-child(4) a:hover .fa {
+  color: #007bb6;
+}
+
+ul li:nth-child(5) a:hover .fa {
+  color: #e4405f;
+}
+
+@media only screen and (max-device-width: 1024px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bgimg-1">
+  <div class="caption">
+      <div style="text-align: left;"><span class="border">GoTestSeries</span></div>
+      <h1 style="text-align:left; font-size: 20px;">Create Or Take Online Examinations</h1>
+  
+  </div>
+</div>
+
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  <h3 style="text-align:center;">AboutUs</h3>
+  <p><div style="font-size: 20px;"> provide a platform where students find their required test for minimal price. We also provide platform to coaching/collage/tuition/educator to conduct their tests online. any coaching/collage/tuition/educator can upload their test on GoTestSeries for free.</div></p>
+</div>
+
+<div class="bgimg-2">
+  <div class="caption">
+      <div style="padding:50px 80px">
+  <span class="border" style="background-color:transparent;font-size:25px;color: wheat;">PRICING</span>
+  <p><div style="font-size: 20px;color: wheat;">
+    FREE TESTS<br>
+    We never charge any kind of fee for free tests. Any educator/coaching/collage/tuition can upload their tests for free without any restriction. Later, they may apply for GO ads for this they will receive 75% revenue made by those ads.<br>
+    FOR PAID TESTS<br>
+    We will charge 10% of test price as our service chages, rest 90% of test price will be deposited in your bank account. Compare our charges with Udemy.
+</div>
+</div>    
+</p>
+  </div>
+</div>
+
+<div style="position:relative;">
+  <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+    <img src="ceo.jpg" alt="ceo">
+    <div style="text-align:center;">
+<h1>Akash Ranjan Verma</h1>
+<h4>Founder and CEO at GoTestSeries</h4>
+</div>
+  </div>
+</div>
+
+<div class="bgimg-3">
+  <div class="caption">
+  <span class="border" style="background-color:transparent;font-size:25px;color: black">RESULTS</span>
+  <div class="container">
+    <div class="card">
+      <h3 class="title">TEST:1 JEE MAINS</h3>
+      <div class="bar">
+        <div class="emptybar"></div>
+        <div class="filledbar"></div>
+      </div>
+      <div class="circle">
+          
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
             
-            <a href="#" class="logo">GoTestSeries</a>
-            <ul class = "nav">
-               
-                <li><a href="#aboutUs">aboutUs</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#teamMembers">TeamMembers</a></li>
-                <li><a href="#suggetionForms">FeedBack</a></li>
-            </ul>
+        <circle class="stroke" cx="60" cy="60" r="50"/>
+      </svg>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="title">TEST:2 JEE MAINS</h3>
+      <div class="bar">
+        <div class="emptybar"></div>
+        <div class="filledbar"></div>
+      </div>
+      <div class="circle">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50"/>
+      </svg>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="title">TEST:3 JEE MAINS</h3>
+      <div class="bar">
+        <div class="emptybar"></div>
+        <div class="filledbar"></div>
+      </div>
+      <div class="circle">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50"/>
+      </svg>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="title">TEST:4 JEE MAINS</h3>
+      <div class="bar">
+        <div class="emptybar"></div>
+        <div class="filledbar"></div>
+      </div>
+      <div class="circle">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle class="stroke" cx="60" cy="60" r="50"/>
+      </svg>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+</div>
 
-                
-        </div>
-        <div class="home-area" id="Home"><i class="cc cc-logo"></i></div>
-     <div class="container">
-            
-        <div class="about-area" id="aboutUs">
-            <div class="textpart">
-               
-                    <h1>AboutUs</h1>
-                    <p>
-                    We provide a platform where students find their required test for minimal price. We also provide platform to coaching/collage/tuition/educator to conduct their tests online. any coaching/collage/tuition/educator can upload their test on GoTestSeries for free.
-                </p>
 
-            </div>
-        </div>
-        <div class="pricing-area" id="pricing">
-            <div class="textpart">
-               
-                    <h1><l>Pricing</l></h1>
+<div class="bgimg-4">
+  <div class="caption">
+  
+  
+<span class="border" style="background-color:transparent;font-size:25px;color: whitesmoke;">FEEDBACK</span>
 
-                    <p><b>FREE TESTS</b> <br>
-                    We never charge any kind of fee for free tests. Any educator/coaching/collage/tuition can upload their tests for free without any restriction. Later, they may apply for GO ads for this they will receive 75% revenue made by those ads.<br>
+
+
+                <div class="container">
+                    <div style="text-align:left;text-align: justify;color: whitesmoke;">
                     
-                    <b>FOR PAID TESTS</b><br>
-                    We will charge 10% of test price as our service chages, rest 90% of test price will be deposited in your bank account.
-                    Compare our charges with Udemy.<br>
-                    
-                    <b>REPORTING</b><br>
-                    Any coaching/collage/tuition/educator can track all information about tests including the date of purchase, student's username, total price paid and their revenue.
-                    
-                </p>
-
-            </div>
-        </div>
-        <div class="team-area" id="teamMembers">
-            <div class="textpart">
-               
-                    <div class="img">
-                    <img src="ceo.jpg"  alt="Akash Ranjan Verma">
-                </div>
-                <p>
-                <h1>
-                    <u>Team Member</u>
-                    
-                </h1>
-                    <h1>Akash Ranjan Verma</h1>
-                    <h4>Founder and CEO at GoTestSeries</h4>
-                </p>
-
-            </div>
-        </div>
-        <div class="form-area" id="suggetionForms">
-            <div class="textpart">
-                <h1>FeedBack</h1>
-                <div class="container1">
                     <form action="action_page.php">
                   
-                      <label for="fname">First Name</label>
+                      <label for="fname">FirstName</label>
                       <input type="text" id="fname" name="firstname" placeholder="Your name..">
                   
-                      <label for="lname">Last Name</label>
+                      <label for="lname">LastName</label>
                       <input type="text" id="lname" name="lastname" placeholder="Your last name..">
                   
                       
@@ -90,18 +394,10 @@
                       <input type="submit" value="Submit">
                   
                     </form>
-                  </div>
-
+                </div>
+                </div>
             </div>
-        </div>
-       
-            
-           
-           
-    </div>
-        <header>
-            <h1>GoTestSeries</h1>
-            <h3>Create Or Take Online Examinations</h3>
-        </header>
-    </body>
+</div>
+
+</body>
 </html>
